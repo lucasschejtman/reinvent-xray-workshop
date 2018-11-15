@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const queryString = require('querystring');
 const ejsLayouts = require("express-ejs-layouts");
 
-AWS.config.region = process.env.AWS_REGION || 'us-east-1';
+AWS.config.region = process.env.AWS_REGION //|| 'us-east-1';
 
 // XRay configuration
 XRay.config([
@@ -20,8 +20,8 @@ XRay.middleware.enableDynamicNaming();
 const app = express();
 const sns = new AWS.SNS();
 const ddb = new AWS.DynamoDB();
-const ddbTable = process.env.STARTUP_SIGNUP_TABLE || 'awseb-e-dwmigyhgey-stack-StartupSignupsTable-1DTBMQA6XVMJC';
-const snsTopic = process.env.NEW_SIGNUP_TOPIC || 'arn:aws:sns:us-east-1:440695699313:awseb-e-dwmigyhgey-stack-NewSignupTopic-N96B84MRJ5SE';
+const ddbTable = process.env.STARTUP_SIGNUP_TABLE //|| 'awseb-e-dwmigyhgey-stack-StartupSignupsTable-1DTBMQA6XVMJC';
+const snsTopic = process.env.NEW_SIGNUP_TOPIC //|| 'arn:aws:sns:us-east-1:440695699313:awseb-e-dwmigyhgey-stack-NewSignupTopic-N96B84MRJ5SE';
 const apiCNAME = process.env.API_CNAME || 'localhost';
 
 const renderPage = (res, page) => {
