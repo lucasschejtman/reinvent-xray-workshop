@@ -40,7 +40,8 @@ const renderPage = (res, page) => {
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 app.set("layout extractScripts", true);
-app.use('/static', express.static(path.join(__dirname, 'static')));
+if(!process.env.ENVIRONMENT) 
+    app.use('/static', express.static(path.join(__dirname, 'static')));
 app.use(bodyParser.urlencoded({ extended:false }));
 app.use(ejsLayouts);
 app.use(XRay.express.openSegment('myfrontend'));
