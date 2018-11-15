@@ -40,7 +40,7 @@ const renderPage = (res, page) => {
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 app.set("layout extractScripts", true);
-if(!process.env.ENVIRONMENT) 
+if(process.env.ENVIRONMENT !== "PROD") 
     app.use('/static', express.static(path.join(__dirname, 'static')));
 app.use(bodyParser.urlencoded({ extended:false }));
 app.use(ejsLayouts);
