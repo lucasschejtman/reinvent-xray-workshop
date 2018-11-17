@@ -1,0 +1,24 @@
+<%- include('partials/landing') %>
+<%- include('partials/modal') %>
+<script type="text/javascript">
+$(document).ready(() => {
+  $("#signup").click(() => {
+    $.post( '<%= locals.endpoint %>', 
+      $("#signupForm").serialize(),
+      _ => $("#signupSuccess").show()
+    )
+    .error(xhr => {
+      switch(xhr.status) {
+        case 409:
+          $("#signupDuplicate").show();
+          break;
+        default:
+          $("#signupError").show();
+      }
+    })
+    .always(() => {
+      $("#signupModal").modal('hide');
+    });
+  })
+})
+</script>

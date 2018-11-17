@@ -24,12 +24,12 @@ const ddbTable = process.env.STARTUP_SIGNUP_TABLE //|| 'awseb-e-dwmigyhgey-stack
 const snsTopic = process.env.NEW_SIGNUP_TOPIC //|| 'arn:aws:sns:us-east-1:440695699313:awseb-e-dwmigyhgey-stack-NewSignupTopic-N96B84MRJ5SE';
 const apiCNAME = process.env.API_CNAME || 'localhost';
 
-const renderPage = (res, page) => {
+const renderPage = (res, page, opts) => {
     XRay.captureAsyncFunc('Page Render', seg => {
-        seg.addAnnotation('page', page);
+        seg.addAnnotation('page', opts.name);
         res.render(page, {
             static_path: 'static',
-            theme: process.env.THEME || 'flatly'
+            locals: opts.locals || {}
         });
         seg.close();
     });
@@ -42,22 +42,23 @@ app.set('views', __dirname + '/views');
 app.set("layout extractScripts", true);
 if(process.env.ENVIRONMENT !== "PROD") 
     app.use('/static', express.static(path.join(__dirname, 'static')));
-app.use(bodyParser.urlencoded({ extended:false }));
+app.use(bodyParser.urlencoded({ extended:  false }));
 app.use(ejsLayouts);
 app.use(XRay.express.openSegment('myfrontend'));
 
 // Routes configuration
-app.get('/',    (_, res) => renderPage(res, 'home'));
-app.get('/m-1', (_, res) => renderPage(res, 'm-1'));
-app.get('/m-2', (_, res) => renderPage(res, 'm-2'));
-app.get('/m-3', (_, res) => renderPage(res, 'm-3'));
+app.get('/',    (_, res) => renderPage(res, 'home', { name: 'home' }));
+app.get('/module-1', (_, res) => renderPage(res, 'module', { name: 'module-1', locals: { endpoint: '/module-1' }}));
+app.get('/module-2', (_, res) => renderPage(res, 'module', { name: 'module-2', locals: { endpoint: '/module-2' }}));
+app.get('/module-3', (_, res) => renderPage(res, 'module', { name: 'module-3', locals: { endpoint: '/module-3' }}));
+app.get('/module-4', (_, res) => renderPage(res, 'module', { name: 'module-4', locals: { endpoint: '/module-4' }}));
+app.get('/module-5', (_, res) => renderPage(res, 'module', { name: 'module-5', locals: { endpoint: '/module-5' }}));
 
-app.post('/m-1', ({ body }, res) => {
+app.post('/module-1', ({ body }, res) => {
     const item = {
-        'email': {'S': body.email},
         'name': {'S': body.name},
-        'preview': {'S': body.previewAccess},
-        'theme': {'S': body.theme}
+        'email': {'S': body.email},
+        'preview': {'S': body.previewAccess}
     };
 
     let seg = XRay.getSegment();
@@ -79,8 +80,7 @@ app.post('/m-1', ({ body }, res) => {
         } else {
             sns.publish({
                 'Message': 'Name: ' + body.name + "\r\nEmail: " + body.email 
-                                    + "\r\nPreviewAccess: " + body.previewAccess 
-                                    + "\r\nTheme: " + body.theme,
+                                    + "\r\nPreviewAccess: " + body.previewAccess,
                 'Subject': 'New user sign up!!!',
                 'TopicArn': snsTopic
             }, function(err, _) {
@@ -98,8 +98,7 @@ app.post('/signup', async ({ body }, res) => {
     const item = {
         'email': {'S': body.email},
         'name': {'S': body.name},
-        'preview': {'S': body.previewAccess},
-        'theme': {'S': body.theme}
+        'preview': {'S': body.previewAccess}
     };
 
     let seg = XRay.getSegment();
@@ -116,13 +115,13 @@ app.post('/signup', async ({ body }, res) => {
             if (err.code === 'ConditionalCheckFailedException') {
                 res.status(409).end("User already exists");
             } else {
+                console.log(err);
                 res.status(500).end("DDB Error");
             }
         } else {
             sns.publish({
                 'Message': 'Name: ' + body.name + "\r\nEmail: " + body.email 
-                                    + "\r\nPreviewAccess: " + body.previewAccess 
-                                    + "\r\nTheme: " + body.theme,
+                                    + "\r\nPreviewAccess: " + body.previewAccess,
                 'Subject': 'New user sign up!!!',
                 'TopicArn': snsTopic
             }, (err, _) => {
@@ -138,7 +137,6 @@ app.post('/signup', async ({ body }, res) => {
 
 app.post('/remoteSignup', function(req, res) {
     var seg = XRay.getSegment();
-    seg.addAnnotation('theme', req.body.theme);
     seg.addAnnotation('previewAccess', req.body.previewAccess);
 
     var reqData = queryString.stringify(req.body);
@@ -182,5 +180,5 @@ app.use(XRay.express.closeSegment());
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-    console.log(`Server running at http://127.0.0.1:${port}/`);
+    console.log(`Server running at http://localhost:${port}/`);
 });
