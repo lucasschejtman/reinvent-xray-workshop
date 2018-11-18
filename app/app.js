@@ -1,10 +1,13 @@
 const path = require('path');
 const XRay = require('aws-xray-sdk');
+// Capture all AWS activity
 const AWS = XRay.captureAWS(require('aws-sdk'));
 const express = require('express');
 const bodyParser = require('body-parser');
 const queryString = require('querystring');
 const ejsLayouts = require("express-ejs-layouts");
+
+require('dotenv').config();
 
 AWS.config.region = process.env.AWS_REGION;
 
@@ -16,6 +19,7 @@ XRay.config([
 ]);
 XRay.middleware.setSamplingRules('sampling.json');
 XRay.middleware.enableDynamicNaming();
+// Capture all HTTP activity
 XRay.captureHTTPsGlobal(require('http'));
 XRay.captureHTTPsGlobal(require('https'));
 
