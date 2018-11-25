@@ -1,7 +1,3 @@
-////////////////////////////////////
-// Making external HTTP requests //
-//////////////////////////////////
-
 const request = require('request');
 
 const API_ID = process.env.API_ID;
