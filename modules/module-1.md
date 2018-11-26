@@ -15,7 +15,7 @@ Once its finished, open the application by running
 
 >eb open
 
-Sign up a few users, try to sign up with the same user more than once as well to get some errors back.
+Sign up a few users, try to sign up with the same user more than once as well.
 
 ## Review traces
 
