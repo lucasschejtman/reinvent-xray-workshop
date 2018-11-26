@@ -24,20 +24,20 @@ Sign up a few users, try to sign up with the same user more than once as well to
 ### Service Map
 After playing with the application, head into the AWS X-Ray [console](https://console.aws.amazon.com/xray) and select `Service map`. You should now see an average of all your requests.
 
-[Service Map Image]
+![Service Map](images/2_servicemap.png)
 
 ### Traces
 You can also select a particular trace from the `Traces` view.
 
-[Traces Image]
+![Traces](images/2_traces.png)
 
 We can also group traces based on the keys that you have provided as annotations.
 
-[Trace Annotations Group image]
+![Traces Group](images/3_groups.png)
 
 If we select a particular trace, we can choose one that has failed (you can determine that by the status code), information about the particular error would've been populated without needing to add any extra code into our application.
 
-[Trace Annotations Image]
+![Traces Annotations](images/3_annotations.png)
 
 ## Extra information
 Not covered in this module, is also the concept of `Metadata`. `Metadata` behaves very similarly to `Annotations` with the exception that the former cannot be used for grouping traces purposes.
