@@ -1,12 +1,16 @@
-# Module 1 - Integration
+# Module 2 - Errors
 
-In this module you'll understand how to integrate AWS X-Ray into your codebase to start capturing meaningful application insights.
+Now that we've integrated AWS X-Ray into our codebase we want to start capturing more granular information.
 
-Start by reviewing the `app.js` file to understand the bootstrapping process for AWS X-Ray.
+Currently, duplicate email submissions are rejected due to the DynamoDB primary key uniqueness but we're not gracefully returning an error back to the client.
 
-Once you're ready, head into the `modules/module-1.js` file and follow the instructions. After the missing code has been implemented, you can deploy the application to start capturing `Module 1` tracing information.
+Once you're ready, head into the `modules/module-2.js` file and follow the instructions. 
 
-### Deploy app
+In this module, we want to capture the `ConditionalCheckFailedException` returned by DynamoDB and return the proper status code back to the client.
+
+After the missing code has been implemented, you can deploy the application to start capturing `Module 2` tracing information.
+
+## Deploy app
 From the `app` folder run
 
 >eb deploy
@@ -14,3 +18,24 @@ From the `app` folder run
 Once its finished, open the application by running
 
 >eb open
+
+Sign up a few users, try to sign up with the same user more than once as well to get some errors back.
+
+## Review traces
+
+### Service Map
+After playing with the application, head into the AWS X-Ray [console](https://console.aws.amazon.com/xray) and select `Service map`. You should now see an average of all your requests.
+
+[Service Map Image]
+
+### Traces
+You can also select a particular trace from the `Traces` view.
+
+[Traces Image]
+
+If we select a particular trace, we can choose one that has failed (you can determine that by the status code), information about the particular error would've been populated without needing to add any extra code into our application.
+
+[Trace error Image]
+
+## Wrap up
+Now you know that AWS X-Ray will capture errors and exceptions your application might throw, as well as reviewing them in the console.
