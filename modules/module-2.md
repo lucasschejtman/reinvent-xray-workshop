@@ -26,16 +26,18 @@ Sign up a few users, try to sign up with the same user more than once as well to
 ### Service Map
 After playing with the application, head into the AWS X-Ray [console](https://console.aws.amazon.com/xray) and select `Service map`. You should now see an average of all your requests.
 
-[Service Map Image]
+![Service Map](images/2_servicemap.png)
 
 ### Traces
 You can also select a particular trace from the `Traces` view.
 
-[Traces Image]
+![Traces](images/2_traces.png)
+
+![Trace](images/2_trace.png)
 
 If we select a particular trace, we can choose one that has failed (you can determine that by the status code), information about the particular error would've been populated without needing to add any extra code into our application.
 
-[Trace error Image]
+![Trace error](images/2_traceerrors.png)
 
 ## Wrap up
 Now you know that AWS X-Ray will capture errors and exceptions your application might throw, as well as reviewing them in the console.
