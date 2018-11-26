@@ -11,15 +11,8 @@ const API = (XRay, ddb, sns) => ({ body }, res) => {
 
     // DDB payload
     // TODO: Add conditional check for existing email
-    const ddbPayload = {
-        'TableName': ddbTable,
-        'Item': {
-            'name': {'S': name},
-            'email': {'S': email},
-            'preview': {'S': previewAccess}
-        },
-        'Expected': { email: { Exists: false } }  
-    };
+    // If you don't feel like writing code or get stuck you can copy/paste the solution
+    // from solutions/module-2.js
 
     // SNS payload
     const snsPayload = {
@@ -31,24 +24,12 @@ const API = (XRay, ddb, sns) => ({ body }, res) => {
         'TopicArn': snsTopic
     };
 
-    ddb.putItem(ddbPayload, (err, _) => {
-        if (err) {
-            // TODO: Check for conditional check failed
-            if (err.code === 'ConditionalCheckFailedException') {
-                res.status(409).end("User already exists");
-            } else {
-                res.status(500).end("DDB Error");
-            }
-        } else {
-            sns.publish(snsPayload, (err, _) => {
-                if (err) {
-                    res.status(500).end("SNS Error");
-                } else {
-                    res.status(201).end("Success");
-                }
-            });            
-        }
-    });
+    // Dynamo and SNS
+    // TODO: Put item into the Dynamo table and then publish the SNS notification and
+    // also check for conditional check failed. Return a 409 for that use case
+    // If you don't feel like writing code or get stuck you can copy/paste the solution
+    // from solutions/module-2.js
+    
 };
 
 module.exports = API;

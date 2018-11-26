@@ -1,24 +1,9 @@
-<%- contentFor('body') %>
-
-<script type="text/javascript">
-  $(document).ready(() => {
-    $("#signup").click(() => {
-      $.post( "/signup", 
-        $("#signupForm").serialize(),
-        _ => $("#signupSuccess").show()
-      )
-      .error(xhr => {
-        switch(xhr.status) {
-          case 409:
-            $("#signupDuplicate").show();
-            break;
-          default:
-            $("#signupError").show();
-        }
-      })
-      .always(() => {
-        $("#signupModal").modal('hide');
-      });
-    })
-  });
-</script>
+<div class="jumbotron">
+  <h2>Welcome to the AWS X-Ray workshop</h2>
+  <p>
+    <img src="/static/images/xray.svg" />
+  </p>
+  <p class="lead">
+      To get started, follow the instructions in the <a href="https://github.com/lucasschejtman/reinvent-xray-workshop">readme</a> file. You can navigate between modules using the dropdown menu up on the navigation bar.
+  </p>
+</div>

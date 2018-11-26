@@ -2,12 +2,10 @@
 Welcome to the AWS X-Ray workshop. In this workshop, you will manage a web application using AWS Elastic Beanstalk, that will integrate with various AWS services as well as remote HTTP calls in which you will be able to understand every interaction that happens from client to server.
 
 ## Backstory
-
 You are weeks away from launching your new start up so you've decided to create a landing page to track interest from the market. Whenever a new person adds their interest, you wants to save their details, get an email notification
 as well as integrating that event with an external API.
 
 ### Current Challenges
-
 The architecture for your application makes use of microservices and managed services when possible in order to remain agile and have a fast go to market strategy. The benefits of such a decentralized architecture are clear but you're starting to realize that tracking errors and potential issues is becoming a really hard thing to do.
 You want to keep using this approach but also have more clarity with the ins and outs of your application.
 
@@ -77,11 +75,19 @@ Navigate into the `app` folder and initialize your app with the following comman
 
 >eb create -ip aws-beanstalk-workshop-profile
 
+While the stack is creating you should receive an email to confirm the subscription to the SNS topic. Confirm it so you can receive emails coming from the app.
+
 ### Step 4 - Deploy the application
 In the same `app` folder run
 
 >eb deploy
 
+# Modules
+
+* [Module 1 - Integration](modules/module-1.md)
+* [Module 2 - Errors](modules/module-2.md)
+* [Module 3 - Annotations](modules/module-3.md)
+* [Module 4 - Third Party](modules/module-4.md)
 
 # Cleanup
 

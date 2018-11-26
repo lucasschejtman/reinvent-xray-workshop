@@ -30,11 +30,10 @@ const API = (XRay, ddb, sns) => ({ body }, res) => {
         'TopicArn': snsTopic
     };
 
-    // TODO: Add XRay annotations for name, email and previewAccess
-    let seg = XRay.getSegment();
-    seg.addAnnotation('name', body.name);
-    seg.addAnnotation('email', body.email);
-    seg.addAnnotation('previewAccess', body.previewAccess);
+    // Annotations
+    // TODO: Capture the current segment and add XRay annotations for name, email and previewAccess
+    // If you don't feel like writing code or get stuck you can copy/paste the solution
+    // from solutions/module-3.js
 
     ddb.putItem(ddbPayload, (err, _) => {
         if (err) {

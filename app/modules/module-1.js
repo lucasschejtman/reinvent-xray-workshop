@@ -30,19 +30,8 @@ const API = (XRay, ddb, sns) => ({ body }, res) => {
     };
 
     // TODO: Put item into the Dynamo table and then publish the SNS notification
-    ddb.putItem(ddbPayload, (err, _) => {
-        if (err) {
-            res.status(500).end("DDB Error");
-        } else {
-            sns.publish(snsPayload, (err, _) => {
-                if (err) {
-                    res.status(500).end("SNS Error");
-                } else {
-                    res.status(201).end("Success");
-                }
-            });            
-        }
-    });
+    // If you don't feel like writing code or get stuck you can copy/paste the solution
+    // from solutions/module-1.js
 };
 
 module.exports = API;
