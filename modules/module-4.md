@@ -17,7 +17,7 @@ AWS Lambda also has AWS X-Ray support without the need of installing the daemon.
 
 ![active tracing](images/activetracing.png)
 
-## Deploy app
+## Deploy app 
 From the `app` folder run
 
 >eb deploy
@@ -38,9 +38,11 @@ After playing with the application, head into the AWS X-Ray [console](https://co
 ### Traces
 You can also select a particular trace from the `Traces` view.
 
-[Traces Image]
+![Service Map Lambda](images/4_service.png)
 
 In this view we can see how AWS X-Ray follows the trace to whichever service it goes as long as information about it keeps getting sent into the daemon.
+
+![Traces Lambda](images/4_trace.png)
 
 ## Extra information
 Not covered in this module but if you wanted to trace a request to a service hosted on `EC2` or even on-premises, you just need to capture the trace id from the request headers.
