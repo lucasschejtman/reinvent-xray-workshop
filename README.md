@@ -81,10 +81,10 @@ Select `1) classic` as our load balancer type.
 
 While the stack is creating you should receive an email to confirm the subscription to the SNS topic. Confirm it so you can receive emails coming from the app.
 
-### Step 4 - Deploy the application
+### Step 4 - Open the application
 In the same `app` folder run
 
->eb deploy
+>eb open
 
 # Modules
 
