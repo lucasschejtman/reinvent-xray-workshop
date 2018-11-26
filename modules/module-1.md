@@ -22,12 +22,12 @@ Sign up a few users, try to sign up with the same user more than once as well.
 ### Service Map
 After playing with the application, head into the AWS X-Ray [console](https://console.aws.amazon.com/xray) and select `Service map`. You should now see an average of all your requests.
 
-[Service Map Image]
+![Service Map](images/servicemap.png)
 
 ### Traces
 You can also select a particular trace from the `Traces` view.
 
-[Traces Image]
+![Traces](images/traces.png)
 
 ## Wrap up
 Now you know how to integrate AWS X-Ray into your application and start capturing insights, as well as navigating the console to review your traces' behavior.
