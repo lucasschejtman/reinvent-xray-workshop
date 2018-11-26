@@ -75,6 +75,10 @@ Navigate into the `app` folder and initialize your app with the following comman
 
 >eb create -ip aws-beanstalk-workshop-profile
 
+Enter an environment name, you can keep the default `xray-reinvent-builder-dev` and then enter a unique `DNS CNAME` prefix.
+
+Select `1) classic` as our load balancer type.
+
 While the stack is creating you should receive an email to confirm the subscription to the SNS topic. Confirm it so you can receive emails coming from the app.
 
 ### Step 4 - Deploy the application
