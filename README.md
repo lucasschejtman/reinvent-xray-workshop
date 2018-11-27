@@ -68,7 +68,14 @@ option_settings:
     XrayReinventBuilderEmail: your@email.com
 ```
 
-### Step 3 - Create the AWS Elastic Beanstalk application
+### Step 3 - Install application dependencies
+Navigate into the `app` folder and install the dependencies with the following command
+
+>npm install
+
+### Step 4 - Create the AWS Elastic Beanstalk application
+*Note: If you have deleted the default VPC the creationg will fail. You would need to update the `options.config` file in order to specify a different VPC (Example below). [Documentation](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.managing.vpc.htmlhttps://docs.aws.amazon.com/elasticbeanstalk/latest/dg/vpc-rds.html)*
+
 Navigate into the `app` folder and initialize your app with the following commands
 
 >eb init --region us-east-1 --platform node.js xray-reinvent-builder
@@ -81,7 +88,18 @@ Select `1) classic` as our load balancer type.
 
 While the stack is creating you should receive an email to confirm the subscription to the SNS topic. Confirm it so you can receive emails coming from the app.
 
-### Step 4 - Open the application
+#### Example custom VPC
+```yaml
+option_settings:
+   aws:ec2:vpc:
+      VPCId: vpc-087a68c03b9c50c84
+      AssociatePublicIpAddress: 'true'
+      ELBScheme: public
+      ELBSubnets: subnet-0fe6b36bcb0ffc462,subnet-032fe3068297ac5b2
+      Subnets: subnet-0fe6b36bcb0ffc462,subnet-032fe3068297ac5b2
+```
+
+### Step 5 - Open the application
 In the same `app` folder run
 
 >eb open
